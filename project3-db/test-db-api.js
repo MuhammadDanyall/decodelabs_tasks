@@ -10,6 +10,13 @@ const runTests = async () => {
   console.log('   Starting Project 3 Database REST API Verifications');
   console.log('========================================================\n');
 
+  // Generate dynamic test values to avoid unique key conflicts on subsequent runs
+  const randId = Math.floor(Math.random() * 1000000);
+  const emailUser = `arsalan.${randId}@decodelabs.com`;
+  const emailCustomer = `ayesha.${randId}@decodelabs.com`;
+  const studentMatric = `DL2026-${randId}`;
+  const courseCode = `CS-${Math.floor(Math.random() * 800) + 100}`;
+
   try {
     // --- TEST 1: Health Diagnostic check ---
     console.log('Test 1: Fetching API Server Health...');
@@ -22,7 +29,7 @@ const runTests = async () => {
     // --- TEST 2: Create User & Profile (1:1 Transaction) ---
     console.log('Test 2: POST /api/users (Creating User & Profile)...');
     const userPayload = {
-      email: 'arsalan.dev@decodelabs.com',
+      email: emailUser,
       password: 'securepassword123',
       fullName: 'Arsalan Khan',
       phoneNumber: '+923001234567'
@@ -57,8 +64,7 @@ const runTests = async () => {
     const getUsersData = await getUsersRes.json();
     console.log(` -> Status: ${getUsersRes.status}`);
     console.log(` -> Total Database Users: ${getUsersData.count}`);
-    console.log(` -> First User Email: "${getUsersData.data?.[0]?.email}"`);
-    console.log(` -> Joined Profile Name: "${getUsersData.data?.[0]?.profile?.fullName}"\n`);
+    console.log(` -> Last Created User Email: "${getUsersData.data?.find(u => u.id === userId)?.email}"\n`);
 
     // --- TEST 5: Update User Profile (1:1 PUT modification) ---
     console.log(`Test 5: PUT /api/users/${userId} (Updating Profile details)...`);
@@ -77,7 +83,7 @@ const runTests = async () => {
 
     // --- TEST 6: Create Customer & Order (1:Many mapping) ---
     console.log('Test 6a: POST /api/customers (Creating customer)...');
-    const customerPayload = { name: 'Ayesha Khan', email: 'ayesha@decodelabs.com' };
+    const customerPayload = { name: 'Ayesha Khan', email: emailCustomer };
     const createCustomerRes = await fetch(`${BASE_URL}/customers`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -114,7 +120,7 @@ const runTests = async () => {
 
     // --- TEST 8: Create Student, Course, & Enroll (Many:Many configuration) ---
     console.log('Test 8a: POST /api/students (Creating student record)...');
-    const studentPayload = { name: 'Danyal Amin', matricNumber: 'DL2026-042' };
+    const studentPayload = { name: 'Danyal Amin', matricNumber: studentMatric };
     const createStudentRes = await fetch(`${BASE_URL}/students`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -127,7 +133,7 @@ const runTests = async () => {
     const studentId = createStudentData.data?.id;
 
     console.log('Test 8b: POST /api/courses (Creating course record)...');
-    const coursePayload = { code: 'CS-302', title: 'Relational Database Design' };
+    const coursePayload = { code: courseCode, title: 'Relational Database Design' };
     const createCourseRes = await fetch(`${BASE_URL}/courses`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -150,8 +156,8 @@ const runTests = async () => {
     console.log(` -> Composite studentId_courseId enrolled: ${enrollData.data?.studentId}_${enrollData.data?.courseId}\n`);
 
     // --- TEST 9: Query Many:Many relationships from both sides ---
-    console.log('Test 9a: GET /api/courses/CS-302/students (Checking students enrolled in course)...');
-    const courseStudentsRes = await fetch(`${BASE_URL}/courses/CS-302/students`);
+    console.log(`Test 9a: GET /api/courses/${courseCode}/students (Checking students enrolled in course)...`);
+    const courseStudentsRes = await fetch(`${BASE_URL}/courses/${courseCode}/students`);
     const courseStudentsData = await courseStudentsRes.json();
     console.log(` -> Status: ${courseStudentsRes.status}`);
     console.log(` -> Course: "${courseStudentsData.title}"`);
@@ -192,8 +198,8 @@ const runTests = async () => {
     console.log(` -> Status: ${unenrollRes.status}`);
     console.log(` -> Message: "${unenrollData.message}"\n`);
 
-    // Check if student list in course CS-302 is empty now
-    const checkCourseStudsRes = await fetch(`${BASE_URL}/courses/CS-302/students`);
+    // Check if student list in course is empty now
+    const checkCourseStudsRes = await fetch(`${BASE_URL}/courses/${courseCode}/students`);
     const checkCourseStudsData = await checkCourseStudsRes.json();
     console.log(` -> Final Enrolled Students Count: ${checkCourseStudsData.enrolledStudentsCount}`);
 
