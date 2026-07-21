@@ -1,0 +1,77 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ==========================================
+// 1. 1:1 Relationship (User <-> UserProfile)
+// ==========================================
+model User {
+  id        Int          @id @default(autoincrement())
+  email     String       @unique
+  password  String
+  profile   UserProfile?
+  createdAt DateTime     @default(now())
+}
+
+model UserProfile {
+  id          Int      @id @default(autoincrement())
+  fullName    String
+  phoneNumber String
+  userId      Int      @unique
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+// ==========================================
+// 2. 1:Many Relationship (Customer <-> Order)
+// ==========================================
+model Customer {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  orders    Order[]
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id         Int      @id @default(autoincrement())
+  amount     Float
+  status     String   @default("pending") // pending, completed, cancelled
+  customerId Int
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+}
+
+// =========================================================
+// 3. Many:Many Relationship (Student <-> Course via Enrollment)
+// =========================================================
+model Student {
+  id           Int          @id @default(autoincrement())
+  name         String
+  matricNumber String       @unique
+  enrollments  Enrollment[]
+  createdAt    DateTime     @default(now())
+}
+
+model Course {
+  id          Int          @id @default(autoincrement())
+  code        String       @unique // e.g. CS101
+  title       String
+  enrollments Enrollment[]
+  createdAt   DateTime     @default(now())
+}
+
+model Enrollment {
+  studentId  Int
+  courseId   Int
+  enrolledAt DateTime @default(now())
+
+  student Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  course  Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@id([studentId, courseId]) // Composite Primary Key
+}

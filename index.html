@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="DecodeLabs Internship Portal - Master the responsive architecture with mobile-first grid layouts, fluid clamp typography, and vanilla JS interactions.">
+  <title>Project 1: The Responsive Architecture | DecodeLabs Hub</title>
+  
+  <!-- Preload fonts to avoid layout shift -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <!-- Local Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Accessible Skip Link -->
+  <a href="#app-main" class="skip-link">Skip to main content</a>
+
+  <!-- Macro Layout Shell -->
+  <div id="app-layout">
+
+    <!-- HEADER LANDMARK -->
+    <header id="app-header">
+      <div class="header-left">
+        <!-- Mobile Navigation Menu Toggle Button -->
+        <button id="sidebar-toggle" aria-label="Toggle Navigation Menu" aria-expanded="false" aria-controls="app-sidebar">
+          <svg class="icon icon-menu" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
+          <svg class="icon icon-close" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" style="display: none;">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+
+        <!-- Brand / Identity -->
+        <a href="#" class="brand-link" aria-label="DecodeLabs Home">
+          <span class="brand-logo" aria-hidden="true">D</span>
+          <span class="brand-text">Decode<span class="highlight">Labs</span></span>
+        </a>
+      </div>
+
+      <!-- Quick Action Controls (Flexbox aligned) -->
+      <div class="header-actions">
+        <!-- Theme Toggle Switcher -->
+        <button id="theme-toggle" class="btn-action" aria-label="Toggle color theme" title="Switch Theme">
+          <!-- Moon Icon (shows in light theme) -->
+          <svg class="icon icon-moon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M12.3 22h-.1c-5.5 0-10-4.5-10-10 0-4.8 3.5-8.9 8.2-9.8.5-.1 1 .2 1.2.7.2.5 0 1.1-.4 1.4-2.8 1.9-4.3 5.4-3.6 8.8.7 3.3 3.5 5.9 6.8 6.5 2.1.4 4.3-.2 6-1.5.4-.3.9-.3 1.3 0 .4.3.6.8.5 1.3-.9 4.6-5 7.9-9.9 8.1v.1z"/>
+          </svg>
+          <!-- Sun Icon (shows in dark theme) -->
+          <svg class="icon icon-sun" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="display: none;">
+            <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.38.39-1.02 0-1.41zM6.99 15.93c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.38-.38.38-1.02 0-1.41z"/>
+          </svg>
+        </button>
+
+        <!-- Notification Panel Trigger -->
+        <div class="dropdown-wrapper">
+          <button id="notification-toggle" class="btn-action" aria-label="View notifications" title="Notifications" aria-expanded="false">
+            <span class="badge-dot" id="notification-badge" aria-hidden="true"></span>
+            <svg class="icon icon-bell" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-2 1H8v-6c0-2.48 1.51-4.5 4-4.5s4 2.02 4 4.5v6z"/>
+            </svg>
+          </button>
+          <div id="notifications-dropdown" class="dropdown-menu">
+            <div class="dropdown-header">
+              <h3>Notifications</h3>
+              <button id="mark-all-read" class="btn-text-link">Mark all read</button>
+            </div>
+            <ul id="notifications-list" class="dropdown-list">
+              <!-- Dynamically populated -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <span class="action-divider" aria-hidden="true"></span>
+
+        <!-- User Profile Widget (Flexbox) -->
+        <div class="dropdown-wrapper">
+          <div id="profile-toggle" class="user-profile" title="Intern Profile" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false">
+            <div class="profile-info">
+              <span class="profile-name">Alex Rivera</span>
+              <span class="profile-role">Frontend Intern</span>
+            </div>
+            <div class="profile-avatar" id="header-avatar" aria-hidden="true">AR</div>
+          </div>
+          <div id="profile-dropdown" class="dropdown-menu">
+            <div class="profile-dropdown-header">
+              <div class="dropdown-avatar" id="dropdown-avatar">AR</div>
+              <div class="profile-details">
+                <span class="profile-name font-bold" id="dropdown-profile-name">Alex Rivera</span>
+                <span class="profile-role text-xs" id="dropdown-profile-role">Frontend Intern</span>
+              </div>
+            </div>
+            <ul class="dropdown-list">
+              <li>
+                <a href="#settings" class="dropdown-item" id="link-profile-settings">
+                  <svg viewBox="0 0 24 24" width="16" height="16"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                  <span>Edit Profile</span>
+                </a>
+              </li>
+              <li>
+                <button class="dropdown-item" id="btn-availability">
+                  <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                  <span>Toggle Availability</span>
+                </button>
+              </li>
+              <li class="divider"></li>
+              <li>
+                <button class="dropdown-item danger" id="btn-logout">
+                  <svg viewBox="0 0 24 24" width="16" height="16"><path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>
+                  <span>Sign Out</span>
+                </button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- SIDEBAR NAVIGATION LANDMARK -->
+    <aside id="app-sidebar" aria-label="Sidebar Navigation">
+      <div class="sidebar-scroller">
+        <!-- Main Sidebar Nav Links -->
+        <nav id="sidebar-nav" aria-label="Main Navigation">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a href="#overview" class="nav-link active" id="nav-overview">
+                <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H5v-2h7v2zm5-4H5v-2h12v2zm0-4H5V7h12v2z"/>
+                </svg>
+                <span class="nav-text">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#tasks" class="nav-link" id="nav-tasks">
+                <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                  <path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                </svg>
+                <span class="nav-text">Internship Tasks</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#metrics" class="nav-link" id="nav-metrics">
+                <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                  <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                </svg>
+                <span class="nav-text">Skill Analytics</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#settings" class="nav-link" id="nav-settings">
+                <svg class="icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                  <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
+                </svg>
+                <span class="nav-text">Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Sidebar Footer Status Widget -->
+        <div class="sidebar-footer">
+          <div class="status-card">
+            <span class="status-indicator online"></span>
+            <div class="status-info">
+              <span class="status-label">Project Sandbox</span>
+              <span class="status-desc">Local Dev Active</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- CORE MAIN CONTENT LANDMARK -->
+    <main id="app-main">
+      
+      <!-- Welcome Hero Banner Section -->
+      <section id="overview" class="dashboard-hero" aria-labelledby="welcome-title">
+        <div class="hero-content">
+          <span class="hero-subtitle">DecodeLabs Internship Program</span>
+          <h1 id="welcome-title" class="hero-title">The Responsive Architecture</h1>
+          <p class="hero-description">
+            Developing premium responsive interfaces, fluid layouts, and accessibility compliance. 
+            All engineered with strict zero-dependency vanilla implementations.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <div class="meta-date">
+            <span class="meta-label">Current Session</span>
+            <span id="live-date" class="meta-value">Loading Date...</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Performance Indicators (Flexbox Container with grid items) -->
+      <section class="stats-container" aria-label="Key Performance Indicators">
+        
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Overall Progress</span>
+            <div class="stat-icon primary">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="stat-value" id="stat-progress">83%</div>
+          <div class="stat-progress-bar" aria-label="Progress is 83%">
+            <div class="progress-fill" style="width: 83%"></div>
+          </div>
+          <div class="stat-footer">
+            <span class="trend positive">↑ 12%</span>
+            <span class="trend-label">since last week</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Tasks Completed</span>
+            <div class="stat-icon success">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="stat-value" id="stat-completed">4 / 6</div>
+          <div class="stat-progress-bar" aria-label="4 out of 6 tasks completed">
+            <div class="progress-fill success" style="width: 66.6%"></div>
+          </div>
+          <div class="stat-footer">
+            <span class="trend positive">2 Remaining</span>
+            <span class="trend-label">in current sprint</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span class="stat-title">Hours Tracked</span>
+            <div class="stat-icon info">
+              <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="stat-value" id="stat-hours">36.5h</div>
+          <div class="stat-progress-bar" aria-label="36.5 hours out of 40 hours target">
+            <div class="progress-fill info" style="width: 91.2%"></div>
+          </div>
+          <div class="stat-footer">
+            <span class="trend neutral">91%</span>
+            <span class="trend-label">of weekly threshold</span>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Task Manager Section -->
+      <section id="tasks" class="dashboard-section" aria-labelledby="tasks-title">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2 id="tasks-title">Internship Roadmap Checklist</h2>
+            <p class="section-subtitle">Track, filter, and review progress across design and development sprints.</p>
+          </div>
+
+          <div class="section-controls">
+            <!-- Search bar -->
+            <div class="search-box">
+              <svg class="icon icon-search" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+              </svg>
+              <input type="search" id="task-search-input" placeholder="Search tasks..." aria-label="Search internship tasks">
+            </div>
+
+            <!-- Dynamic Task Filtering Tabs (Flexbox) -->
+            <div class="filter-tabs" role="tablist" aria-label="Filter tasks">
+              <button class="filter-tab active" role="tab" aria-selected="true" aria-controls="tasks-grid" id="filter-all" data-category="all">
+                All Tasks
+              </button>
+              <button class="filter-tab" role="tab" aria-selected="false" aria-controls="tasks-grid" id="filter-arch" data-category="architecture">
+                Architecture
+              </button>
+              <button class="filter-tab" role="tab" aria-selected="false" aria-controls="tasks-grid" id="filter-js" data-category="interactivity">
+                Interactivity
+              </button>
+              <button class="filter-tab" role="tab" aria-selected="false" aria-controls="tasks-grid" id="filter-aest" data-category="polish">
+                Polish
+              </button>
+            </div>
+
+            <!-- Add Task button -->
+            <button id="btn-add-task" class="btn-primary flex-btn">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" style="fill: currentColor;">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+              </svg>
+              <span>Add Task</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Task Grid Container -->
+        <div class="tasks-grid" id="tasks-grid" role="region" aria-live="polite">
+          <!-- Tasks will be dynamically populated/filtered by script.js, HTML acts as initial semantic container -->
+          
+          <!-- Task Item 1 -->
+          <article class="task-card completed" data-task-id="1" data-category="architecture">
+            <div class="task-badge-row">
+              <span class="category-badge">Architecture</span>
+              <span class="status-pill completed">Completed</span>
+            </div>
+            <h3 class="task-card-title">Semantic Scaffolding</h3>
+            <p class="task-card-desc">Constructing a standard document with appropriate HTML5 landmark elements for SEO and WCAG compatibility.</p>
+            <div class="task-card-footer">
+              <div class="task-progress-info">
+                <span>Progress</span>
+                <strong>100%</strong>
+              </div>
+              <button class="btn-detail" aria-label="View details for Semantic Scaffolding">
+                <span>Details</span>
+                <svg class="btn-arrow" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Task Item 2 -->
+          <article class="task-card completed" data-task-id="2" data-category="architecture">
+            <div class="task-badge-row">
+              <span class="category-badge">Architecture</span>
+              <span class="status-pill completed">Completed</span>
+            </div>
+            <h3 class="task-card-title">Responsive CSS Grid</h3>
+            <p class="task-card-desc">Establishing a strict 2D macro grid layout for viewport transitions, maintaining header and footer alignment.</p>
+            <div class="task-card-footer">
+              <div class="task-progress-info">
+                <span>Progress</span>
+                <strong>100%</strong>
+              </div>
+              <button class="btn-detail" aria-label="View details for Responsive CSS Grid">
+                <span>Details</span>
+                <svg class="btn-arrow" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Task Item 3 -->
+          <article class="task-card in-progress" data-task-id="3" data-category="architecture">
+            <div class="task-badge-row">
+              <span class="category-badge">Architecture</span>
+              <span class="status-pill in-progress">In Progress</span>
+            </div>
+            <h3 class="task-card-title">Fluid Typography</h3>
+            <p class="task-card-desc">Leveraging the clamp function to auto-scale fonts smoothly between viewport ranges, replacing hard media rules.</p>
+            <div class="task-card-footer">
+              <div class="task-progress-info">
+                <span>Progress</span>
+                <strong>60%</strong>
+              </div>
+              <button class="btn-detail" aria-label="View details for Fluid Typography">
+                <span>Details</span>
+                <svg class="btn-arrow" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Task Item 4 -->
+          <article class="task-card completed" data-task-id="4" data-category="interactivity">
+            <div class="task-badge-row">
+              <span class="category-badge">Interactivity</span>
+              <span class="status-pill completed">Completed</span>
+            </div>
+            <h3 class="task-card-title">Off-canvas Drawer</h3>
+            <p class="task-card-desc">Developing a clean off-canvas drawer transition for small screens using responsive toggles and focus traps.</p>
+            <div class="task-card-footer">
+              <div class="task-progress-info">
+                <span>Progress</span>
+                <strong>100%</strong>
+              </div>
+              <button class="btn-detail" aria-label="View details for Off-canvas Drawer">
+                <span>Details</span>
+                <svg class="btn-arrow" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Task Item 5 -->
+          <article class="task-card in-progress" data-task-id="5" data-category="polish">
+            <div class="task-badge-row">
+              <span class="category-badge">Polish</span>
+              <span class="status-pill in-progress">In Progress</span>
+            </div>
+            <h3 class="task-card-title">Warmth Theme</h3>
+            <p class="task-card-desc">Refining contrast tokens for light and dark modes, mapping variables to HSL grounding tones.</p>
+            <div class="task-card-footer">
+              <div class="task-progress-info">
+                <span>Progress</span>
+                <strong>40%</strong>
+              </div>
+              <button class="btn-detail" aria-label="View details for Warmth Theme">
+                <span>Details</span>
+                <svg class="btn-arrow" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Task Item 6 -->
+          <article class="task-card pending" data-task-id="6" data-category="interactivity">
+            <div class="task-badge-row">
+              <span class="category-badge">Interactivity</span>
+              <span class="status-pill pending">Pending</span>
+            </div>
+            <h3 class="task-card-title">UI State Filters</h3>
+            <p class="task-card-desc">Binding JS click events to filter grid cards via category parameters, managing layout state reflows.</p>
+            <div class="task-card-footer">
+              <div class="task-progress-info">
+                <span>Progress</span>
+                <strong>0%</strong>
+              </div>
+              <button class="btn-detail" aria-label="View details for UI State Filters">
+                <span>Details</span>
+                <svg class="btn-arrow" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                  <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- Skill Analytics Section -->
+      <section id="metrics" class="dashboard-section" aria-labelledby="metrics-title">
+        <h2 id="metrics-title">Skill Metric Overview</h2>
+        <p class="section-subtitle">A representation of core frontend competencies achieved during the DecodeLabs internship sprint.</p>
+        
+        <div class="metrics-grid">
+          <!-- Skill Bar Card 1 -->
+          <div class="metric-card">
+            <div class="metric-label-row">
+              <span>CSS Grid (2D Macro Layouts)</span>
+              <strong>90%</strong>
+            </div>
+            <div class="metric-track">
+              <div class="metric-progress" style="width: 90%; background-color: var(--color-primary);"></div>
+            </div>
+          </div>
+          <!-- Skill Bar Card 2 -->
+          <div class="metric-card">
+            <div class="metric-label-row">
+              <span>Flexbox (Micro Alignments)</span>
+              <strong>95%</strong>
+            </div>
+            <div class="metric-track">
+              <div class="metric-progress" style="width: 95%; background-color: var(--color-primary);"></div>
+            </div>
+          </div>
+          <!-- Skill Bar Card 3 -->
+          <div class="metric-card">
+            <div class="metric-label-row">
+              <span>Fluid Design (clamp & variables)</span>
+              <strong>85%</strong>
+            </div>
+            <div class="metric-track">
+              <div class="metric-progress" style="width: 85%; background-color: var(--color-primary);"></div>
+            </div>
+          </div>
+          <!-- Skill Bar Card 4 -->
+          <div class="metric-card">
+            <div class="metric-label-row">
+              <span>Vanilla DOM & State Control</span>
+              <strong>80%</strong>
+            </div>
+            <div class="metric-track">
+              <div class="metric-progress" style="width: 80%; background-color: var(--color-primary);"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings & Configuration Section -->
+      <section id="settings" class="dashboard-section" aria-labelledby="settings-title">
+        <h2 id="settings-title">User Settings & System Config</h2>
+        <p class="section-subtitle">Manage your profile, customize the colorful visual interface theme, and monitor system diagnostics.</p>
+
+        <div class="settings-grid">
+          <!-- Profile Card -->
+          <div class="setting-card">
+            <div class="setting-header">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+              <h3>Profile Settings</h3>
+            </div>
+            <form id="profile-settings-form">
+              <div class="form-group">
+                <label for="input-profile-name">Intern Name</label>
+                <input type="text" id="input-profile-name" value="Alex Rivera" required>
+              </div>
+              <div class="form-group">
+                <label for="input-profile-role">Intern Role</label>
+                <input type="text" id="input-profile-role" value="Frontend Intern" required>
+              </div>
+              <button type="submit" class="btn-primary">Update Profile</button>
+            </form>
+          </div>
+
+          <!-- Color Customizer Card -->
+          <div class="setting-card">
+            <div class="setting-header">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.76-.39-1.04-.23-.27-.38-.63-.38-1.01 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+              <h3>Vibrant Palette Theme</h3>
+            </div>
+            <div class="theme-picker-grid">
+              <button type="button" class="theme-selector-btn theme-btn-mocha active" data-theme-name="mocha">
+                <span class="color-dot" style="background: #A67B5B;"></span>
+                <span class="theme-label">Classic Mocha</span>
+              </button>
+              <button type="button" class="theme-selector-btn theme-btn-cyberpunk" data-theme-name="cyberpunk">
+                <span class="color-dot" style="background: #ff007f;"></span>
+                <span class="theme-label">Cyberpunk Neon</span>
+              </button>
+              <button type="button" class="theme-selector-btn theme-btn-ocean" data-theme-name="ocean">
+                <span class="color-dot" style="background: #0077b6;"></span>
+                <span class="theme-label">Ocean Breeze</span>
+              </button>
+              <button type="button" class="theme-selector-btn theme-btn-forest" data-theme-name="forest">
+                <span class="color-dot" style="background: #2d6a4f;"></span>
+                <span class="theme-label">Emerald Forest</span>
+              </button>
+              <button type="button" class="theme-selector-btn theme-btn-sunset" data-theme-name="sunset">
+                <span class="color-dot" style="background: #ff6b6b;"></span>
+                <span class="theme-label">Sunset Glow</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Server Health / Diagnostics -->
+          <div class="setting-card">
+            <div class="setting-header">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 14H5v-2h7v2zm5-4H5v-2h12v2zm0-4H5V7h12v2z"/></svg>
+              <h3>Diagnostics & API Server</h3>
+            </div>
+            <div class="api-health-block">
+              <div class="diagnostics-row">
+                <span>API Connection:</span>
+                <strong id="diag-api-status" class="status-badge success">Checking...</strong>
+              </div>
+              <div class="diagnostics-row">
+                <span>Server Uptime:</span>
+                <strong id="diag-api-uptime">-</strong>
+              </div>
+              <div class="diagnostics-row">
+                <span>Memory Usage:</span>
+                <strong id="diag-api-memory">-</strong>
+              </div>
+              <div class="diagnostics-row">
+                <span>Platform Environment:</span>
+                <strong id="diag-api-platform">-</strong>
+              </div>
+              <button id="btn-refresh-diagnostics" class="btn-detail flex-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                <span>Refresh Diagnostics</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER LANDMARK -->
+    <footer id="app-footer">
+      <div class="footer-left">
+        <p>&copy; 2026 DecodeLabs Internship Program. Project 1.</p>
+      </div>
+      <div class="footer-center">
+        <p class="tech-stack">Built with <span class="badge-tech">HTML5</span> • <span class="badge-tech">CSS3</span> • <span class="badge-tech">Vanilla JS</span></p>
+      </div>
+      <div class="footer-right">
+        <p class="server-status">
+          <span class="status-indicator online"></span>
+          <span>Responsive Layout V1.0.0</span>
+        </p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Detail Modal Drawer (For task cards details click & edit) -->
+  <div id="detail-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-backdrop" id="modal-close-backdrop"></div>
+    <div class="modal-content-wrapper">
+      <header class="modal-header">
+        <h2 id="modal-title">Task Details</h2>
+        <button id="modal-close-btn" aria-label="Close details dialog">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </header>
+      <form id="edit-task-form">
+        <input type="hidden" id="edit-task-id">
+        <div class="modal-body" id="modal-body-content">
+          <!-- Content will be dynamically inserted here via script.js -->
+          <p>Loading task specification details...</p>
+        </div>
+        <footer class="modal-footer justify-between">
+          <button type="button" id="modal-delete-btn" class="btn-primary danger flex-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" style="fill: currentColor;"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+            <span>Delete</span>
+          </button>
+          <div class="footer-right-buttons">
+            <button type="button" id="modal-cancel-btn" class="btn-detail">Cancel</button>
+            <button type="submit" id="modal-save-btn" class="btn-primary">Save Changes</button>
+          </div>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Task Modal Dialog -->
+  <div id="add-task-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="add-modal-title" aria-hidden="true">
+    <div class="modal-backdrop" id="add-modal-close-backdrop"></div>
+    <div class="modal-content-wrapper">
+      <header class="modal-header">
+        <h2 id="add-modal-title">Create Internship Task</h2>
+        <button id="add-modal-close-btn" aria-label="Close dialog">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </header>
+      <form id="add-task-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="add-title">Task Title</label>
+            <input type="text" id="add-title" placeholder="e.g. Redux State Integration" required minlength="3">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="add-category">Category</label>
+              <select id="add-category" required>
+                <option value="architecture">Architecture</option>
+                <option value="interactivity">Interactivity</option>
+                <option value="polish">Polish</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="add-status">Status</label>
+              <select id="add-status" required>
+                <option value="pending">Pending</option>
+                <option value="in-progress">In Progress</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="add-progress">Progress (<span id="add-progress-val">50</span>%)</label>
+            <input type="range" id="add-progress" min="0" max="100" value="50">
+          </div>
+          <div class="form-group">
+            <label for="add-desc">Description</label>
+            <textarea id="add-desc" placeholder="Provide a brief summary of the task..." required minlength="10" rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="add-deliverables">Deliverables</label>
+            <input type="text" id="add-deliverables" placeholder="What is the final output?" required>
+          </div>
+          <div class="form-group">
+            <label for="add-spec">Technical Requirements (One per line)</label>
+            <textarea id="add-spec" placeholder="Requirement 1&#10;Requirement 2&#10;Requirement 3" required rows="3"></textarea>
+          </div>
+        </div>
+        <footer class="modal-footer">
+          <button type="button" id="add-modal-cancel-btn" class="btn-detail">Cancel</button>
+          <button type="submit" class="btn-primary">Create Task</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirm Delete Modal Dialog -->
+  <div id="delete-confirm-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title" aria-hidden="true">
+    <div class="modal-backdrop" id="delete-modal-close-backdrop"></div>
+    <div class="modal-content-wrapper max-w-sm">
+      <header class="modal-header">
+        <h2 id="delete-modal-title">Delete Task?</h2>
+        <button id="delete-modal-close-btn" aria-label="Close dialog">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </header>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this task? This action is permanent and cannot be undone.</p>
+        <p><strong id="delete-task-title-confirm">Task Title</strong></p>
+      </div>
+      <footer class="modal-footer">
+        <button type="button" id="delete-modal-cancel-btn" class="btn-detail">Cancel</button>
+        <button type="button" id="delete-modal-confirm-btn" class="btn-primary danger">Delete Permanently</button>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Main JavaScript File -->
+  <script src="script.js"></script>
+</body>
+</html>
