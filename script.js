@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- PROFILE LOGIC ---
   const initProfile = () => {
-    const name = localStorage.getItem('profile-name') || 'Alex Rivera';
+    const name = localStorage.getItem('profile-name') || 'Muhammad Danyal';
     const role = localStorage.getItem('profile-role') || 'Frontend Intern';
     updateProfileUI(name, role);
 

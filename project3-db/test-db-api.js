@@ -22,10 +22,10 @@ const runTests = async () => {
     // --- TEST 2: Create User & Profile (1:1 Transaction) ---
     console.log('Test 2: POST /api/users (Creating User & Profile)...');
     const userPayload = {
-      email: 'john.dev@decodelabs.com',
+      email: 'arsalan.dev@decodelabs.com',
       password: 'securepassword123',
-      fullName: 'John Dev',
-      phoneNumber: '+15550199'
+      fullName: 'Arsalan Khan',
+      phoneNumber: '+923001234567'
     };
     const createUserRes = await fetch(`${BASE_URL}/users`, {
       method: 'POST',
@@ -63,8 +63,8 @@ const runTests = async () => {
     // --- TEST 5: Update User Profile (1:1 PUT modification) ---
     console.log(`Test 5: PUT /api/users/${userId} (Updating Profile details)...`);
     const updateProfilePayload = {
-      fullName: 'John Senior Developer',
-      phoneNumber: '+19999999'
+      fullName: 'Arsalan Senior Developer',
+      phoneNumber: '+923007654321'
     };
     const updateRes = await fetch(`${BASE_URL}/users/${userId}`, {
       method: 'PUT',
@@ -77,7 +77,7 @@ const runTests = async () => {
 
     // --- TEST 6: Create Customer & Order (1:Many mapping) ---
     console.log('Test 6a: POST /api/customers (Creating customer)...');
-    const customerPayload = { name: 'Sarah Tech', email: 'sarah@decodelabs.com' };
+    const customerPayload = { name: 'Ayesha Khan', email: 'ayesha@decodelabs.com' };
     const createCustomerRes = await fetch(`${BASE_URL}/customers`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
